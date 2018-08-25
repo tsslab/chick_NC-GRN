@@ -6,7 +6,7 @@ library(shiny)
 
 runApp("path_to_directory_containing_RData_folder")
 
-This app downloads data from figshare and therefore you should have a figshare to download the needed files (https://figshare.com/articles/chick_NC-GRN_RData/xxxxxxx and https://figshare.com/articles/chick_NC-GRN_images/xxxxxxx). You will be directed to authenticate the connection:
+This app downloads data and images from figshare and therefore you should have a figshare to download the needed files (https://figshare.com/articles/chick_NC-GRN_RData/6953294 and https://figshare.com/articles/chick_NC-GRN_images/6953306.). You will be directed to authenticate the connection:
 
 Use a local file ('.httr-oauth'), to cache OAuth access credentials between R sessions?
 
