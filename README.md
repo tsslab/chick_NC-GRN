@@ -21,7 +21,7 @@ Neural crest, gene regulatory network, chick, enhancers, ATAC, super-enhancers, 
 
 **Construction of the global neural crest gene regulatory network _in vivo_**
 
-Ruth M Williams<sup>1</sup>, Ivan Candido-Ferreira<sup>1</sup>, Emmanouela Repapi<sup>2</sup>, Daria Gavriouchkina<sup>1,4</sup>, Upeka Senanayake<sup>1</sup>, Jelena Telenius<sup>3</sup>, Stephen Taylor<sup>2</sup>, Jim Hughes<sup>3</sup> and Tatjana Sauka-Spengler<sup>1,§</sup>.
+Ruth M Williams<sup>1</sup>, Ivan Candido-Ferreira<sup>1</sup>, Emmanouela Repapi<sup>2,4</sup>, Daria Gavriouchkina<sup>1,5</sup>, Upeka Senanayake<sup>1</sup>, Jelena Telenius<sup>3,4</sup>, Stephen Taylor<sup>2,4</sup>, Jim Hughes<sup>3,4</sup> and Tatjana Sauka-Spengler<sup>1,§</sup>.
 
  § Corresponding author: 
  **Tatjana Sauka-Spengler (tatjana.sauka-spengler@imm.ox.ac.uk)**
@@ -34,7 +34,7 @@ Radcliffe Department of Medicine,
 Oxford, OX3 9DS, UK
 
 2. University of Oxford,
-MRC WIMM Centre for Computational Biology,
+Computational Biology Research Group,
 Weatherall Institute of Molecular Medicine,
 Oxford, OX3 9DS, UK
 
@@ -43,7 +43,12 @@ MRC Molecular Haematology Unit,
 Weatherall Institute of Molecular Medicine,
 Oxford, OX3 9DS, UK
 
-4. Present address:
+4. University of Oxford,
+MRC Centre for Computational Biology,
+Weatherall Institute of Molecular Medicine,
+Oxford, OX3 9DS, UK
+
+5. Present address:
 Okinawa Institute of Science and Technology,
 Molecular Genetics Unit,
 Onna, 904-0495, Japan
@@ -60,4 +65,4 @@ Jelena Telenius, Jim Hughes: [Hughes lab](https://www.imm.ox.ac.uk/research/unit
 
 ### Acknowledgements
 
-This work was supported by MRC (G0902418), The Lister Institute for Preventative Medicine , John Fell Fund (131/038), and Leverhulme Trust grant (RPG-2015-026) to T.S.S.. 
+This work was supported by MRC (G0902418), The Lister Institute for Preventative Medicine Research Prize, John Fell Fund (131/038), and Leverhulme Trust grant (RPG-2015-026) to T.S.S. I.C.F is funded by the Oxford-Angus McLeod-St John's College Graduate fellowship and the WIMM prize studentship. 
