@@ -5,11 +5,11 @@ Here we provide additional information such as scripts and applications to acces
 
 ## Project Description
 
-Precise control of developmental processes is encoded in the genome in the form of gene regulatory networks (GRNs). Current understanding of vertebrate embryonic GRNs is fragmentary due to complex cell-type and developmental composition. Here we present a genome-wide _in vivo_ study of the GRN underlying neural crest (NC), an emblematic stem cell-like population with unique migratory ability and multipotency. Analysis of NC chromatin and transcriptional dynamics revealed the full complement of NC enhancers and transcription factor inputs including ‘super-enhancer’-like clusters, which we tested using _in vivo_ reporters and epigenome engineering. Integration of _cis_-regulatory and single-cell data enabled construction and functional validation of the NC-GRN at unprecedented resolution. Our integrated approach allowing dissection of cell-type-specific gene regulatory circuits _in vivo_ has broad implications for GRN discovery and investigation.
+Precise control of developmental processes is encoded in the genome in the form of gene regulatory networks (GRNs). Such multi-factorial systems are difficult to decode in vertebrates owing to their complex gene hierarchies and transient dynamic molecular interactions. Here we present a genome-wide in vivo reconstruction of the GRN underlying development of neural crest (NC), an emblematic embryonic multipotent cell population. By coupling NC-specific epigenomic and single-cell transcriptome profiling with genome/epigenome engineering _in vivo_, we identify multiple regulatory layers governing NC ontogeny, including NC-specific enhancers and super-enhancers, novel trans-factors and _cis_-signatures. Assembling the NC regulome has allowed the comprehensive reverse engineering of the NC-GRN at unprecedented resolution. Furthermore, identification and dissection of divergent upstream combinatorial regulatory codes has afforded new insights into opposing gene circuits that define canonical and neural NC fates. Our integrated approach, allowing dissection of cell-type-specific regulatory circuits _in vivo_, has broad implications for GRN discovery and investigation.
 
 ### Keywords
 
-Neural crest, gene regulatory network, chick, enhancers, ATAC, super-enhancers, Capture-C, transcription factors
+Neural crest, gene regulatory network, chick, enhancers, ATAC, super-enhancers, Capture-C, transcription factors, neural crest cell lineage
 
 ### Research Organism
 
@@ -19,9 +19,9 @@ Neural crest, gene regulatory network, chick, enhancers, ATAC, super-enhancers, 
 
 ## Manuscript and contact information
 
-**Construction of the global neural crest gene regulatory network _in vivo_**
+**Reconstruction of the global neural crest gene regulatory network _in vivo_**
 
-Ruth M Williams<sup>1</sup>, Ivan Candido-Ferreira<sup>1</sup>, Emmanouela Repapi<sup>2,4</sup>, Daria Gavriouchkina<sup>1,5</sup>, Upeka Senanayake<sup>1</sup>, Jelena Telenius<sup>3,4</sup>, Stephen Taylor<sup>2,4</sup>, Jim Hughes<sup>3,4</sup> and Tatjana Sauka-Spengler<sup>1,§</sup>.
+Ruth M Williams<sup>1</sup>, Ivan Candido-Ferreira<sup>1</sup>, Emmanouela Repapi<sup>2</sup>, Daria Gavriouchkina<sup>1,4</sup>, Upeka Senanayake<sup>1</sup>, Jelena Telenius<sup>2,3</sup>, Stephen Taylor<sup>2</sup>, Jim Hughes<sup>2,3</sup> and Tatjana Sauka-Spengler<sup>1,§</sup>.
 
  § Corresponding author: 
  **Tatjana Sauka-Spengler (tatjana.sauka-spengler@imm.ox.ac.uk)**
@@ -34,21 +34,16 @@ Radcliffe Department of Medicine,
 Oxford, OX3 9DS, UK
 
 2. University of Oxford,
-Computational Biology Research Group,
-Weatherall Institute of Molecular Medicine,
+MRC Centre for Computational Biology,
+MRC Weatherall Institute of Molecular Medicine,
 Oxford, OX3 9DS, UK
 
 3. University of Oxford,
 MRC Molecular Haematology Unit,
-Weatherall Institute of Molecular Medicine,
+MRC Weatherall Institute of Molecular Medicine,
 Oxford, OX3 9DS, UK
 
-4. University of Oxford,
-MRC Centre for Computational Biology,
-Weatherall Institute of Molecular Medicine,
-Oxford, OX3 9DS, UK
-
-5. Present address:
+4. Present address:
 Okinawa Institute of Science and Technology,
 Molecular Genetics Unit,
 Onna, 904-0495, Japan
