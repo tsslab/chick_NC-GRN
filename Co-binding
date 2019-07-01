@@ -1,0 +1,255 @@
+######################################################################################
+# A list of de novo motifs enriched in each cluster of elements 
+# was manually compiled and screened against a list of BED files using Homer v4.7
+######################################################################################
+
+# For example, k-Cluster 3 elements:
+
+module load homer/4.7
+
+A=5-way_cl3_7816.bed
+B=cl3_background.bed
+
+annotatePeaks.pl $A galGal4 -size 500 -m enriched_de_novo_motifs_cl3.motif > enriched_motifs_cl3.txt
+annotatePeaks.pl $B galGal4 -size 500 -m enriched_de_novo_motifs_cl3.motif > enriched_motifs_bg_cl3.txt
+
+##############################################
+# The resulting tab separated files are matrixes containing coordinates in BED formats, and motif positions within each enhancer.
+# Such files were converted to a matrix of motif occurrences in binary format (0 = absence, 1= presence) using the following R script:
+##############################################
+
+>R 
+library(readr)
+library(stringr)
+library(plyr)
+
+cluster3 <- as.data.frame(read_delim("5-way_cl3_7816.txt", "\t", escape_double = FALSE, trim_ws = TRUE))
+cluster4 <- as.data.frame(read_delim("5-way_cl4_20156.txt", "\t", escape_double = FALSE, trim_ws = TRUE))
+cluster6 <- as.data.frame(read_delim("5-way_cl6_6479.txt", "\t", escape_double = FALSE, trim_ws = TRUE))
+cluster9 <- as.data.frame(read_delim("5-way_cl9_6623.txt", "\t", escape_double = FALSE, trim_ws = TRUE))
+diff6 <- as.data.frame(read_delim("diff_bind_6ss.txt", "\t", escape_double = FALSE, trim_ws = TRUE))
+diff9 <- as.data.frame(read_delim("diff_bind_9ss.txt", "\t", escape_double = FALSE, trim_ws = TRUE))
+
+Cl3 <- cluster3 
+
+A = matrix(0, nrow=nrow(Cl3), ncol=ncol(Cl3))
+colnames(A) <- colnames(Cl3)
+dim(A)
+ncol(A)
+nrow(A)
+
+for (i in 0:ncol(Cl3)) {
+  for (j in 0:nrow(Cl3)) {
+    A[j,i] <- str_count(Cl3[j,i],coll("("))
+  }
+} 
+
+A[is.na(A)] <- 0
+
+write.table(A, file = "motif_ocurrences_cl3.txt", sep = "\t")
+
+Cl3 <- cluster4 
+
+A = matrix(0, nrow=nrow(Cl3), ncol=ncol(Cl3))
+colnames(A) <- colnames(Cl3)
+dim(A)
+ncol(A)
+nrow(A)
+
+for (i in 0:ncol(Cl3)) {
+  for (j in 0:nrow(Cl3)) {
+    A[j,i] <- str_count(Cl3[j,i],coll("("))
+  }
+} 
+
+A[is.na(A)] <- 0
+
+write.table(A, file = "motif_ocurrences_cl4.txt", sep = "\t")
+
+Cl3 <- cluster6
+
+A = matrix(0, nrow=nrow(Cl3), ncol=ncol(Cl3))
+colnames(A) <- colnames(Cl3)
+dim(A)
+ncol(A)
+nrow(A)
+
+for (i in 0:ncol(Cl3)) {
+  for (j in 0:nrow(Cl3)) {
+    A[j,i] <- str_count(Cl3[j,i],coll("("))
+  }
+} 
+
+A[is.na(A)] <- 0
+
+write.table(A, file = "motif_ocurrences_cl6.txt", sep = "\t")
+
+
+Cl3 <- cluster9
+
+A = matrix(0, nrow=nrow(Cl3), ncol=ncol(Cl3))
+colnames(A) <- colnames(Cl3)
+dim(A)
+ncol(A)
+nrow(A)
+
+for (i in 0:ncol(Cl3)) {
+  for (j in 0:nrow(Cl3)) {
+    A[j,i] <- str_count(Cl3[j,i],coll("("))
+  }
+} 
+
+A[is.na(A)] <- 0
+
+write.table(A, file = "motif_ocurrences_cl9.txt", sep = "\t")
+
+
+Cl3 <- diff6 
+
+A = matrix(0, nrow=nrow(Cl3), ncol=ncol(Cl3))
+colnames(A) <- colnames(Cl3)
+dim(A)
+ncol(A)
+nrow(A)
+
+for (i in 0:ncol(Cl3)) {
+  for (j in 0:nrow(Cl3)) {
+    A[j,i] <- str_count(Cl3[j,i],coll("("))
+  }
+} 
+
+A[is.na(A)] <- 0
+
+write.table(A, file = "motif_ocurrences_diff6.txt", sep = "\t")
+
+
+Cl3 <- diff9 
+
+A = matrix(0, nrow=nrow(Cl3), ncol=ncol(Cl3))
+colnames(A) <- colnames(Cl3)
+dim(A)
+ncol(A)
+nrow(A)
+
+for (i in 0:ncol(Cl3)) {
+  for (j in 0:nrow(Cl3)) {
+    A[j,i] <- str_count(Cl3[j,i],coll("("))
+  }
+} 
+
+A[is.na(A)] <- 0
+
+write.table(A, file = "motif_ocurrences_diff9.txt", sep = "\t")
+
+################################################
+# Replace header name of motif_occurences files
+################################################
+
+for i in *.txt
+do cut -f 1-93 $i | tail -n +2 | sed '1i SequenceID\tPeakID\tChr\tStart\tEnd\tStrand\tSp1\tYY1\tNFY\tKLF5\tETS\tE2F1\tNRF\tGFY\tMYB\tRFX\tZNF711\tAtf7\tEgr1\tZNF143\tERG\tTbx5\tNanog\tcJun\tHIF1b\tCRE\tGABPA\tLhx3\tPbx3\tOCT4_SOX2_TCF_NANOG\tXbox\tFOXA1\tTEAD4\tZBTB33\tEKLF\tGATA3\tPitx1\tArnt_Ahr\tSix1\tEts1\tPU1\tPAX5\tGFX\tStat3\tFOXP1\tTcf3\tTATA_Box\tTcf12\tOtx2\tAtoh1\tOlig2\tGSC\tNkx6_1\tAP_2gamma\tAP_2alpha\tSox10\tSox3\tSox6\tSox9\tSox4\tSox2\tPAX3\tPR\tTR4\tSCL\tErra\tMeis1\tRfx1\tNeuroD1\tAscl1\tPtf1a\tcMyc\tCTCF\tCLOCK\tE2A\tEBF\tTbet\tEomes\t' > formated_$i
+done
+
+#################################################################################
+# In parallel, generate a file listing all 2-way motif combinations, computed in R
+#################################################################################
+
+# list all motif names 
+
+x <- c('Sp1','YY1','NFY','KLF5','ETS','E2F1','NRF','GFY','MYB','RFX','ZNF711','Atf7','Egr1','ZNF143','ERG','Tbx5','Nanog','cJun','HIF1b','CRE','GABPA','Lhx3','Pbx3','OCT4_SOX2_TCF_NANOG','Xbox','FOXA1','TEAD4','ZBTB33','EKLF','GATA3','Pitx1','Arnt_Ahr','Six1','Ets1','PU1','PAX5','GFX','Stat3','FOXP1','Tcf3','TATA_Box','Tcf12','Otx2','Atoh1','Olig2','GSC,Nkx6_1','AP_2gamma','AP_2alpha','Sox10','Sox3','Sox6','Sox9','Sox4','Sox2','PAX3','PR','TR4','SCL','Erra','Meis1','Rfx1','NeuroD1','Ascl1','Ptf1a','cMyc','CTCF','CLOCK','E2A','EBF','Tbet','Eomes')
+
+# create a data.frame with all n combinations of x motifs using combn(x,n)
+y <- data.frame(combn(x, 2))
+
+# check if the expected number of combinations were computed
+dim(y)
+
+# transpose the table so that it can be inspected in a text editor such as excel
+library(data.table)
+y <- transpose(y)
+# output to a csv file
+write.csv(y, file = "motif_combinations.csv")
+
+###########################################################################
+# Finally, a custom Python script was used to identify putative co-biding of such factors, 
+# by taking into account the list of motif combinations to be analysed (motif_combinations.csv), 
+# and the files containing the motif occurrences for a cluster of cis-regulatory elements and its control (a background)
+
+import pandas as pd
+
+infile1 = 'motif_combinations_cl3_diff9.csv'
+
+motif_comb = pd.read_csv( infile1 )
+mc = motif_comb.filter([ 'Motif_1','Motif_2' ])
+
+
+infiles2 = [ 'motif_ocurrences_kcl3.txt', 'motif_ocurrences_Bg_kcl3.txt']
+
+for infile2 in infiles2:
+        motif_ocur = pd.read_csv( infile2, delimiter='\t' )
+
+        sums_products = []
+
+        # Lembra de tirar o .head()
+        for m1, m2 in zip( mc.Motif_1, mc.Motif_2 ):
+                products = []
+                for index, row in motif_ocur.iterrows():
+                        product = float(row[m1])*float(row[m2])
+                        products.append(product)
+                sums_products.append( sum(products) )
+
+        mc[infile2] = sums_products
+
+outfile = '2_way_motif_combinations_kcl3.csv'
+mc.to_csv(outfile)
+
+###############################################
+# The resulting files contain a list of motif combinations and the raw number of enhancers containing such putative co-biding events, in this case for kCl3 and its background
+# Frequencies and Chi-squared tests were then applied to each of these combinations in Excel, and we applied Bonferroni correction for multiple hypothesis in the end.
+###############################################
+
+###############################################
+# Plots
+###############################################
+
+# Circular network plots were created using lists of statistically significant motif combinations as follows: 
+
+cluster3motif1 <- c('ATF-like','Sox10','Sox10','Sox10','Arnt','Smad3','ATF-like','ATF-like','ATF-like','Arnt','Sox8','ATF-like','Sox8','Pax8','Smad3','Sox10','Smad3','Sox10','Elf5','GCR/NR3C1','TFAP2c','HoxD13','Smad3','Sox8','Sox10','GCR/NR3C1','Pax2/3/5','Arnt','TFAP2c','Arnt','Arnt','Smad3','ATF-like','Sox10','Arnt','Arnt','HoxA9-like','ATF-like','Maff','GCR/NR3C1','Sox/Fox','Elf5','Elf5','TFAP2c','Sox8','Arnt','Pax2/3/5','Pax2/3/5','Arnt','HoxA9-like','HoxD13','Arnt','Sox8','Meis1','Arnt','ATF-like','Sox8','GATA1_2_3','GCR/NR3C1','Sox10','Pax2/3/5','ATF-like','Arnt','Arnt','Sox10','HoxD13','Essra_Rxra','Pax8','Pax2/3/5')
+cluster3motif2 <- c('Sox10','Sox8','TFAP2c','Sox/Fox','Sox10','Sox10','Sox8','TFAP2c','Smad3','ATF-like','Zic1/2/3','Sox/Fox','TFAP2c','Sox10','Sox8','Sox9','TFAP2c','Zic1/2/3','Sox10','Sox10','Sox/Fox','Sox10','Sox/Fox','Sox9','Zbtb3','Sox/Fox','Sox10','Zic1/2/3','Sox9','Elf5','Smad3','STAT','E2F6','TEAD1_2','Pax2/3/5','Essra_Rxra','Sox10','Essra_Rxra','Sox10','Sox8','Sox9','Sox8','TFAP2c','E2F6','TEAD1_2','TFAP2c','Smad3','Sox/Fox','Meis1','Smad3','Sox8','Sox9','Sox/Fox','Sox10','Zbtb3','RFX5','STAT','Sox8','TFAP2c','E2F6','TFAP2c','Sox9','Hic1','HoxD13','NR2E3','Smad3','Sox8','Sox8','Sox8')
+
+diff9motif1 <- c('Sox10','ATF-like','Sox10','Sox10','Arnt','Smad3','ATF-like','ATF-like','Sox8','Arnt','ATF-like','Smad3','ATF-like','Sox8','TFAP2c','Smad3','Smad3','Arnt','Arnt','Arnt','Sox10','Sox8','Arnt','TFAP2c','Pax8','GCR/NR3C1','Pax2/3/5','Sox8','Sox/Fox','Elf5','HoxD13','Arnt','ATF-like','GCR/NR3C1','Arnt','Sox10','TFAP2c','ATF-like','Sox10','Pax2/3/5','Sox10','Arnt','GCR/NR3C1','Sox10','Elf5','Elf5','ATF-like','Sox10','Pax2/3/5','Arnt','ATF-like','Maff','Pax2/3/5','Pax2/3/5','HoxA9-like','Sox8','Smad3','Arnt','Sox10','HoxD13','Essra_Rxra','Sox10','Pax8','ATF-like','Sox8','ATF-like','GATA1_2_3','Sox8','Arnt','Sox8','Arnt','GCR/NR3C1','HoxD13','Meis1','Arnt','Essra_Rxra','HoxA9-like','ATF-like','Smad3','Pax8','GATA1_2_3','HoxD13','Sox8','Arnt','Maff','Arnt','ATF-like','TFAP2c','HoxD13','Maff','Sox10')
+diff9motif2  <- c('Sox8','Sox10','TFAP2c','Sox/Fox','Sox10','Sox10','Sox8','TFAP2c','TFAP2c','ATF-like','Smad3','Sox8','Sox/Fox','Sox/Fox','Sox/Fox','TFAP2c','Sox/Fox','TFAP2c','Smad3','Sox8','Sox9','Sox9','Sox/Fox','Sox9','Sox10','Sox10','Sox10','Zic1/2/3','Sox9','Sox10','Sox10','Pax2/3/5','E2F6','Sox/Fox','Sox9','NR2E3','E2F6','Sox9','Zic1/2/3','Sox/Fox','Zbtb3','Elf5','Sox8','Six1','Sox8','TFAP2c','RFX5','TEAD1_2','Smad3','Essra_Rxra','Essra_Rxra','Sox10','TFAP2c','Sox8','Sox10','TEAD1_2','STAT','Zic1/2/3','E2F6','Sox8','Sox/Fox','RFX5','Sox8','Pax2/3/5','STAT','Pax8','Smad3','Six1','HoxD13','E2F6','Hic1','TFAP2c','TFAP2c','Sox10','Meis1','Sox8','Smad3','Elf5','Sox9','Smad3','Sox8','Smad3','Zbtb3','Zbtb3','Sox8','GCR/NR3C1','GCR/NR3C1','NR2E3','Sox/Fox','Sox/Fox','STAT')
+
+diff6motif1  <- c('Lhx2','Lhx2','Lhx2','Lhx2','Sox2','GCR','Sox2','Lhx2','Lhx2','Lef1','Lhx2','SOX10','GCR','Lef1','Sox2','Sox2','Msx2','Tcf','Lhx2','Lhx2','Lef1','Pax7','Lef1','Tcf','Mzf1','Msx2','Pax7','Sox2','Zbtb3','GCR','Oct4','Msx2','Lhx2','Lhx2','Lef1','Pax7','Mzf1','Elf','Lhx2','Sox2','REST','ATF-like','HoxA','Oct4','Oct4_Sox2','Dmbx1','ATF-like','HoxC','FoxK1','Elf','Oct4_Sox2','EBF1','Lhx2','FoxK1','GCR','Sox2','Oct4','Oct4','Dmbx1','Lhx2','Dmbx1','FoxA1','Oct4','Elf','Oct4','EBF1','Lhx2','HoxA','EBF1','HoxA','HoxC','FoxA1','HoxC','Sox2','HoxC','Oct4','Oct4','Oct4_Sox2','ATF-like','ATF-like','Dmbx1','FoxK1','Lhx2','Dmbx1','EBF1','GCR','Zbtb3','EBF1','Stat','Stat','Tcf','GCR','Lef1','Mzf1','SOX10','Zbtb3','GCR')
+diff6motif2  <- c('Sox2','Zbtb3','Tcf','SOX10','Zbtb3','Lhx2','Tcf','Pax7','TFAP2a','Lhx2','Msx2','Sox2','Sox2','Sox2','Pax7','TFAP2a','Sox2','Zbtb3','Mzf1','Zic1/2/3','Zbtb3','Tcf','Tcf','TFAP2a','Sox2','Zbtb3','Zbtb3','Zic1/2/3','Zic1/2/3','Pax7','Lhx2','Pax7','Zic2','REST','Pax7','TFAP2a','SOX10','Lhx2','Oct4_Sox2','Zic2','Sox2','Lhx2','Lhx2','Sox2','Sox2','Lhx2','Sox2','Lhx2','Sox2','Sox2','Tcf','Zbtb3','Sox5','Lhx2','Zic2','Zic3','Tcf','SOX10','Sox2','Stat','Zbtb3','Sox2','Zbtb3','Zbtb3','GCR','Lhx2','Nr2E3','Sox2','Sox2','Zbtb3','Tcf','Lhx2','Sox2','Stat','SOX10','Pax7','Msx2','SOX10','Tcf','Zbtb3','Tcf','Zbtb3','Zic3','SOX10','TFAP2a','HoxC','Zic3','SOX10','Tcf','TFAP2a','Zic3','SOX10','Mzf1','Zic2','Pax7','Zic2','Zic1/2/3')
+
+cluster9motif1  <- c('Otx2','Otx2','Rxra/Essra','Pax2','NR2F2','Pax2','Pax2','Pax2','Sox/Fox','ATF','Otx2','NR2F2','Lsx','MafA','ATF','Pax2','Lsx','MafA','Sox/Fox','Sox9','Lsx','MafK','NR2C2','GATA','Pax2','Otx2','Pax2','MafA','Otx2','Mef2A','NR2F2','NR2F2','Sox5','Sox9','NR2C2','Lsx','Otx2','NR2F2','NR2C2','Ets1','Fox/E2F6','Mef2A','Otx2','Sox/Fox','MafK','Fox/E2F6','Ets1','Mef2A','RFX','MafK','MSN','Pax2','Sox9','GATA','Otx2','REST','FoxA2','Pax2','NR2C2')
+cluster9motif2  <- c('Pax2','Sox9','Pax2','Sox9','Otx2','Zbtb3','Smad2/3','Sox5','Otx2','Otx2','Zic1_2_3','Sox9','Pax2','Pax2','Pax2','Zic1_2_3','Otx2','Sox9','Pax2','Tcf7','Sox9','Pax2','Sox9','Otx2','Six4','Zbtb3','Zfp','Otx2','RFX','NR2F2','Six4','Zfp','Sox9','Zbtb3','Otx2','NR2F2','Tcf7','Pax2','NR2F2','Pax2','Otx2','Otx2','Six4','Sox9','Sox9','Pax2','Otx2','Pax2','Sox9','Otx2','Pax2','TFAP2a/c','Zic1_2_3','Pax2','REST','Sox9','Otx2','RFX','Pax2')
+
+cluster4motif1  <- c('Med','ELK','ERF','ELK','Med','EGR1','ERF','ELK','Med','GFY','ELK','NRF1','Med','EGR1','EGR1','ERF','Med','EGR1','ERF','RDS1','ELK','ELK','RDS1','Med','E2F3','GFY','Med','ELK','Med','GFX','ERF','Med','ERF','EGR1','ELK','CRE','ELK','GABPA','EGR1','RDS1','Med','ERF','GFY','Med','ERF','E2F3','RDS1','ELK','NRF1','Med','EGR1','ELK','E2F3','NFY','ELK','GFX','RDS1','NRF1','NRF1','ERF','GFX','ERF','EGR1','GABPA','CRE','RDS1','NRF1','CRE','ERF','RDS1','ELK','EGR1','E2F3','ERF','RDS1','CRE','ELK','ELK','ELK','SP4','ELK','SP4','ERF','RDS1','GFX','NRF1','GFY','E2F3','E2F3','E2F6','EGR1','GFY','CRE','ERF','GABPA','CRE','NRF1','Smad3','EGR1','EGR1','GFY','ERF','GABPA','ERF','EGR1','EGR1','NFY','NFY','NRF1','EGR1','GFY','NFY','Smad3','E2F3','GFY','GFX','NRF1','CRE','GFX','GFX')
+cluster4motif2  <- c('RDS1','Med','Med','RDS1','NRF1','Med','RDS1','ERF','SP4','Med','NRF1','RDS1','E2F6','RDS1','ELK','NRF1','YY1','ERF','YY1','SP4','GFY','SP4','E2F6','SFPI1','Med','RDS1','Smad3','E2F6','XBP1','Med','SP4','NFY','GFY','NRF1','YY1','Med','SFPI1','Med','SP4','YY1','SP1','E2F6','NRF1','ZBTB33','NFY','ELK','Smad3','GABPA','SP4','RFX','E2F6','Smad3','RDS1','RDS1','GFX','RDS1','SFPI1','YY1','E2F6','GFX','ZBTB33','Smad3','GFY','RDS1','RDS1','SP1','SFPI1','ELK','SFPI1','XBP1','NFY','YY1','ERF','GABPA','ZBTB33','ERF','SP1','XBP1','ZBTB33','E2F6','RFX','YY1','XBP1','RFX','NRF1','Smad3','E2F6','NRF1','EGR1','YY1','SFPI1','YY1','NRF1','ZBTB33','NRF1','EGR1','ZBTB33','SP4','NFY','SP1','SP4','SP1','GFY','RFX','GABPA','Smad3','SP4','E2F6','SP1','GFX','SFPI1','NRF1','SP1','SP4','NFY','SP4','XBP1','SP4','E2F6','YY1')
+
+par(mfrow=c(1,2))
+
+library(circlize)
+
+coomb_TF <- data.frame(diff6motif1, diff6motif2)
+coomb_TF
+chordDiagram(coomb_TF)
+
+coomb_TF <- data.frame(diff9motif1, diff9motif2)
+coomb_TF
+chordDiagram(coomb_TF)
+
+par(mfrow=c(1,3))
+
+coomb_TF <- data.frame(cluster3motif1, cluster3motif2)
+coomb_TF
+chordDiagram(coomb_TF)
+
+coomb_TF <- data.frame(cluster4motif1, cluster4motif2)
+coomb_TF
+chordDiagram(coomb_TF)
+
+coomb_TF <- data.frame(cluster9motif1, cluster9motif2)
+coomb_TF
+chordDiagram(coomb_TF)
