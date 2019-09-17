@@ -9,31 +9,36 @@ library(dplyr)
 library(tidyr)
 library(igraph)
 library(GGally)
+library(rfigshare)
 
 # Server ------------------------
 
 shinyServer(function(input, output, session){
-  
+
+  urltemp <- fs_download(6953294)
   # load necessary data ----------------------
   withProgress(message = 'Please wait',
                detail = 'Loading the files...', value = 0, {
-                  load('RData/RNASEQ.RData')
-                  incProgress(1/9)
-                  load("RData/diffbind_data.RData")
-                  incProgress(2/9)
-                  load("RData/cor_genes.RData")
-                  incProgress(3/9)
-                  load("RData/wgcnaclusters.RData")
-                  incProgress(4/9)
-                  load("RData/wgcnagenes.RData")
-                  incProgress(5/9)
-                  load("RData/enhancer_data.RData")
-                  incProgress(6/9)
-                  load("RData/cluster_RN.RData")
-                  incProgress(7/9)
-                  load("RData/TFBS_motifs.RData")
-                  incProgress(8/9)
-                  load("RData/DiffBind_motifs.RData")
+                 load(url(urltemp[1]))
+                 incProgress(1/10)
+                 load(url(urltemp[2]))
+                 incProgress(2/10)
+                 load(url(urltemp[3]))
+                 incProgress(3/10)
+                 load(url(urltemp[4]))
+                 incProgress(4/10)
+                 load(url(urltemp[5]))
+                 incProgress(5/10)
+                 load(url(urltemp[6]))
+                 incProgress(6/10)
+                 load(url(urltemp[7]))
+                 incProgress(7/10)
+                 load(url(urltemp[8]))
+                 incProgress(8/10)
+                 load(url(urltemp[9]))
+                 incProgress(9/10)
+                 load(url(urltemp[10]))
+                 
                }
   )
   
