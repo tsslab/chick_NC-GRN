@@ -148,7 +148,8 @@ shinyServer(function(input, output, session){
   
 ### Regulatory elements ----------------------------
   updateSelectizeInput(session, 'Gene_Name_reg', choices = gene_names_2ndtab, selected="SOX10",server = TRUE)
-  
+
+# ATTN: Again here all the cluster 9 have been replaced by cluster 1 in principle but the variables remain the same to save me from changing/breaking everything  
   # Enhancers ----------------------------
   output$table_enh_clust <- renderTable({
     if(input$Gene_Name_reg=="")
@@ -158,7 +159,7 @@ shinyServer(function(input, output, session){
     my_enh_cl4 <-  select(filter(enh_cl4, enh_cl4$gene_name == input$Gene_Name_reg),-gene_name)
     my_enh_cl9 <-  select(filter(enh_cl9, enh_cl9$gene_name == input$Gene_Name_reg),-gene_name)
     all_together_enh <- rbind(my_enh_cl3,my_enh_cl4,my_enh_cl9)
-    all_together_enh$Cluster <- rep(c("Cluster 3", "Cluster 4", "Cluster 9"), times=c(nrow(my_enh_cl3), nrow(my_enh_cl4), nrow(my_enh_cl9)))
+    all_together_enh$Cluster <- rep(c("Cluster 3", "Cluster 4", "Cluster 1"), times=c(nrow(my_enh_cl3), nrow(my_enh_cl4), nrow(my_enh_cl9)))
     return(all_together_enh)
   })
 
@@ -177,7 +178,7 @@ shinyServer(function(input, output, session){
       if(length(myind)==1) mygene <- get(paste("mygene", myind[1], sep=""))
       if(length(myind)==0) return(NULL)
     }
-    mygene$cluster <- rep(c("Cl3","Cl9"), times=c(nrow(mygene1), nrow(mygene2)) )
+    mygene$cluster <- rep(c("Cl3","Cl1"), times=c(nrow(mygene1), nrow(mygene2)) )
     row.names(mygene) <- paste(mygene$cluster, mygene$Chr, mygene$Start, mygene$End, sep="_")
     mygene <- select_if(mygene, not_all_na) %>% select(-c(gene_name, cluster)) 
     mygene <- mygene[,c(5:ncol(mygene))]
@@ -200,7 +201,7 @@ shinyServer(function(input, output, session){
       if(length(myind)==1) mygene_mat <- get(paste("mygene_mat", myind[1], sep=""))
       if(length(myind)==0) return(NULL)
     }
-    mygene_mat$cluster <- rep(c("Cl3","Cl9"), times=c(nrow(mygene_mat1), nrow(mygene_mat2)) )
+    mygene_mat$cluster <- rep(c("Cl3","Cl1"), times=c(nrow(mygene_mat1), nrow(mygene_mat2)) )
     row.names(mygene_mat) <- paste(mygene_mat$cluster, mygene_mat$Chr, mygene_mat$Start, mygene_mat$End, sep="_")
     mygene_mat <- select_if(mygene_mat, not_all_0) %>% select(-c(gene_name, cluster)) 
     mygene_mat <- mygene_mat[,c(5:ncol(mygene_mat))]
@@ -367,7 +368,7 @@ shinyServer(function(input, output, session){
       return("") 
     if (nrow(gene_RN_cl9())<1) {
       plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n')
-      text(x = 0.5, y = 0.5, paste("This gene is not in Cluster 9."), 
+      text(x = 0.5, y = 0.5, paste("This gene is not in 1."), 
            cex = 1.6, col = "black")
     } else{
     geneedges <- cbind(gene_RN_cl9()[,1], to= input$Gene_Name_RN, gene_RN_cl9()[,2], gene_RN_cl9()[,3])
